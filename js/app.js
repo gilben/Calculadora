@@ -1,6 +1,7 @@
 var images = document.getElementsByClassName('tecla');
 
 var self = this;
+var targetid;
 var num1 = 0,
     num2, resultado, op;
 
@@ -22,6 +23,8 @@ function Down(event) {
     Agreganumeros(actualid, targetid);
     LimpiarPantalla(targetid);
     capturarDatos(targetid);
+    CambiarSigno(targetid, actualid);
+
 
 
     //Caluladora.Calcular(actualid, targetid);
@@ -77,22 +80,20 @@ function LimpiarPantalla(tecla) {
 
 function capturarDatos(targetid) {
 
-    if (isNaN(targetid)) {
-        if (num1 == 0) {
-            num1 = document.getElementById('display').innerHTML;
+    if (targetid == 'mas' || targetid == 'menos' || targetid == 'por' || targetid == 'mas' || targetid == 'dividido' || targetid == 'igual') {
+        if (targetid !== 'igual') {
+            num1 = parseFloat(document.getElementById('display').innerHTML);
             document.getElementById('display').innerHTML = 0;
             op = targetid;
-          
-        }else if(targetid=='igual'){
+
+        } else {
             num2 = document.getElementById('display').innerHTML;
-            document.getElementById('display').innerHTML= operaciones(op,num1,num2);
+            resultado = operaciones(op, num1, num2).toString().substr(0, 8);
+            document.getElementById('display').innerHTML = resultado;
+
         }
 
-    } else {
-
     }
-
-   
 
 }
 
@@ -109,7 +110,9 @@ function operaciones(operacion, num1, num2) {
             resultado = parseFloat(num1) * parseFloat(num2);
             break;
         case 'menos':
+
             resultado = parseFloat(num1) - parseFloat(num2);
+
             break;
         case 'dividido':
             resultado = parseFloat(num1) / parseFloat(num2);
@@ -119,84 +122,29 @@ function operaciones(operacion, num1, num2) {
 
     return (resultado)
 
-    /*if (operacion == 'mas') {
-
-
-        if (num1 == 0) {
-            num1 = document.getElementById('display').innerHTML;
-            document.getElementById('display').innerHTML = 0;
-
-        } else {
-
-            var numActual = document.getElementById('display').innerHTML;
-            document.getElementById('display').innerHTML = 0;
-            resultado = parseFloat(num1) + parseFloat(numActual);
-            document.getElementById('display').innerHTML = resultado;
-            console.log(num1);
-        }
-
-    } else if (operacion == 'igual') {
-        num2 = document.getElementById('display').innerHTML;
-        resultado = parseFloat(num1) + parseFloat(num2);
-        document.getElementById('display').innerHTML=resultado;
-        num1 = 0;
-        num2 = 0;
-    }
-
-    
-    
-    
-    
-    
-    
-     if (operacion == 'por') {
-
-
-        if (num1 == 0) {
-            num1 = document.getElementById('display').innerHTML;
-            document.getElementById('display').innerHTML = 0;
-
-        } else {
-
-            var numActual = document.getElementById('display').innerHTML;
-            document.getElementById('display').innerHTML = 0;
-            resultado = parseFloat(num1) * parseFloat(numActual);
-            document.getElementById('display').innerHTML = resultado;
-            console.log(num1);
-        }
-
-    } else if (operacion == 'igual') {
-        num2 = document.getElementById('display').innerHTML;
-        resultado = parseFloat(num1) * parseFloat(num2);
-        
-        num1 = 0;
-        num2 = 0;
-    }
-    
-    console.log(resultado);
-    
-    */
-
-    /*
-    switch (operacion) {
-        case 'mas':
-            num1 = document.getElementById('display').innerHTML;
-            document.getElementById('display').innerHTML = 0;
-            break;
-        case 'menos':
-            document.getElementById('display').innerHTML = 'menosss';
-            alert(num1);
-            break;
-        case 'igual':
-            num2 = document.getElementById('display').innerHTML;
-            suma = num1 + num2;
-            document.getElementById('display').innerHTML = suma;
-
-            break;
-    }
-*/
 
 }
+
+
+
+
+
+function CambiarSigno(targetid, numero) {
+
+
+    if (targetid == 'sign') {
+
+        resultado = parseFloat(numero) * -1;
+        document.getElementById('display').innerHTML = resultado;
+        console.log(resultado);
+
+    }
+
+
+
+}
+
+
 
 
 
